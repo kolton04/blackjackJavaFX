@@ -33,6 +33,7 @@ public class Hand {
             }
         }
 
+        //handles aces
         while(value > 21 && aces > 0){
             value -= 10;
             aces--;
@@ -65,6 +66,10 @@ public class Hand {
 
     public int getHandSize(){
         return hand.size();
+    }
+
+    public List<Card> getHand() {
+        return hand;
     }
 
 }
