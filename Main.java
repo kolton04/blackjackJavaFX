@@ -12,7 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("blackjack.fxml"));
-        Scene scene = new Scene(root, 1000, 850);
+        Scene scene = new Scene(root, 1500, 1000);
         scene.setFill(Color.GREEN);
         stage.setTitle("Blackjack");
         stage.setScene(scene);
