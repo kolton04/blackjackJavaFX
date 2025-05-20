@@ -9,6 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 
+import java.util.ArrayList;
+
 public class Controller {
     Game game = new Game();
     @FXML
@@ -41,34 +43,16 @@ public class Controller {
         hitButton.setDisable(false);
         standButton.setDisable(false);
 
-        for(int i = 0; i < 2; i++){
-            playerHandImages = new ImageView(new Image(game.player.hand.getCardPaths().get(i)));
-            dealerHandImages = new ImageView(new Image(game.dealer.hand.getCardPaths().get(i)));
-
-            playerHandImages.setFitWidth(150);
-            playerHandImages.setFitHeight(200);
-            playerHandImages.setLayoutX(i * 30);
-            playerHand.getChildren().add(playerHandImages);
-
-            dealerHandImages.setFitWidth(150);
-            dealerHandImages.setFitHeight(200);
-            dealerHandImages.setLayoutX(i * 30);
-            dealerHand.getChildren().add(dealerHandImages);
-        }
+        playerHand.getChildren().addAll(createImgViews(game.player.hand.getCardPaths()));
+        dealerHand.getChildren().addAll(createImgViews(game.dealer.hand.getCardPaths()));
     }
 
     @FXML
     public void hitButton(ActionEvent e) {
         game.hit();
-        //playerHandImages.getChildren().add(game.player.hand.getCardImages().get(game.player.hand.getHandSize() - 1));
-        for(int i = 2; i < game.player.hand.getHandSize(); i++){
-            playerHandImages = new ImageView(new Image(game.player.hand.getCardPaths().get(i)));
-            playerHandImages.setFitWidth(150);
-            playerHandImages.setFitHeight(200);
-            playerHandImages.setLayoutX(i * 30);
-            playerHand.getChildren().add(playerHandImages);
 
-        }
+        playerHand.getChildren().addAll(createImgViews(game.player.hand.getCardPaths()));
+
 
 
         playerHandValueLabel.setText("Your Hand: " + game.player.hand.getHandValue());
@@ -88,10 +72,8 @@ public class Controller {
         hitButton.setDisable(true);
         standButton.setDisable(true);
         game.stand();
-        //Adds card images that dealer hit.
-        //for (int i = 2; i < game.dealer.hand.getCardImages().size(); i++) {
-           // dealerHandImages.getChildren().add(game.dealer.hand.getCardImages().get(i));
-        //}
+        dealerHand.getChildren().addAll(createImgViews(game.dealer.hand.getCardPaths()));
+
         dealerHandValueLabel.setText("Dealer's Hand: " + game.dealer.hand.getHandValue());
 
         if(game.dealer.hand.getHandValue() > 21){
@@ -127,8 +109,18 @@ public class Controller {
         outcomeLabel.setText("");
     }
 
-    private void addCard(Pane pane, String imgPath, int index){
-        ImageView imgV = new ImageView(new Image(imgPath));
+    private ArrayList<ImageView> createImgViews(ArrayList<String> imgPath){
+        ArrayList<ImageView> imgViews = new ArrayList<>();
 
+        for(int i = 0; i < imgPath.size(); i++){
+            ImageView imgV = new ImageView(new Image(imgPath.get(i)));
+            imgV.setFitWidth(150);
+            imgV.setFitHeight(200);
+            imgV.setLayoutX(i * 30);
+
+            imgViews.add(imgV);
+        }
+
+        return imgViews;
     }
 }

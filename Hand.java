@@ -44,8 +44,6 @@ public class Hand {
     public ArrayList<String> getCardPaths(){
         ArrayList<String> cardImages = new ArrayList<>();
 
-
-
         for(int i = 0; i < hand.size(); i++){
             cardImages.add(i, hand.get(i).getCardURL());
         }
