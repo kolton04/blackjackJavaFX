@@ -1,4 +1,4 @@
-package com.example.blackjackJavaFX;
+package com.koltont.blackjack;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,7 +11,7 @@ public class Card {
     public Card(String rank, String suit){
         this.rank = rank;
         this.suit = suit;
-        this.cardURL = "/PNG-cards-1.3/cards/" + rank + "_of_" + suit + ".png";
+        this.cardURL = "/PNG-cards-1.3/" + rank + "_of_" + suit + ".png";
     }
 
     public String getRank(){

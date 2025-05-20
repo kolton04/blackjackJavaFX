@@ -1,4 +1,4 @@
-package com.example.blackjackJavaFX;
+package com.koltont.blackjack;
 
 public class Player {
 

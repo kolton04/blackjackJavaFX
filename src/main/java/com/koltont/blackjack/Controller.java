@@ -1,4 +1,4 @@
-package com.example.blackjackJavaFX;
+package com.koltont.blackjack;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,15 +43,15 @@ public class Controller {
         hitButton.setDisable(false);
         standButton.setDisable(false);
 
-        playerHand.getChildren().addAll(createImgViews(game.player.hand.getCardPaths()));
-        dealerHand.getChildren().addAll(createImgViews(game.dealer.hand.getCardPaths()));
+        playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
+        dealerHand.getChildren().addAll(getHand(game.dealer.hand.getCardPaths()));
     }
 
     @FXML
     public void hitButton(ActionEvent e) {
         game.hit();
 
-        playerHand.getChildren().addAll(createImgViews(game.player.hand.getCardPaths()));
+        playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
 
 
 
@@ -72,7 +72,7 @@ public class Controller {
         hitButton.setDisable(true);
         standButton.setDisable(true);
         game.stand();
-        dealerHand.getChildren().addAll(createImgViews(game.dealer.hand.getCardPaths()));
+        dealerHand.getChildren().addAll(getHand(game.dealer.hand.getCardPaths()));
 
         dealerHandValueLabel.setText("Dealer's Hand: " + game.dealer.hand.getHandValue());
 
@@ -109,7 +109,7 @@ public class Controller {
         outcomeLabel.setText("");
     }
 
-    private ArrayList<ImageView> createImgViews(ArrayList<String> imgPath){
+    private ArrayList<ImageView> getHand(ArrayList<String> imgPath){
         ArrayList<ImageView> imgViews = new ArrayList<>();
 
         for(int i = 0; i < imgPath.size(); i++){

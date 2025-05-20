@@ -1,4 +1,4 @@
-package com.example.blackjackJavaFX;
+package com.koltont.blackjack;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
