@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="850.0" style="-fx-background-color: #10772a;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.koltont.blackjack.Controller">
+   <children>
+      <StackPane layoutX="150.0" layoutY="662.0" prefHeight="150.0" prefWidth="550.0">
+         <children>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="150.0" prefWidth="550.0">
+               <children>
+                  <JFXButton fx:id="dealButton" buttonType="RAISED" onAction="#dealButton" prefHeight="150.0" prefWidth="550.0" ripplerFill="BLACK" style="-fx-background-color: #36b500;" text="Deal" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial Black" size="69.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="175.0" prefWidth="660.0" visible="false">
+               <children>
+                  <Button fx:id="hitButton" mnemonicParsing="false" onAction="#hitButton" prefHeight="175.0" prefWidth="220.0" style="-fx-background-color: #27ae60; -fx-background-radius: 15;" text="Hit">
+                     <font>
+                        <Font name="Arial Black" size="40.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="standButton" alignment="CENTER" mnemonicParsing="false" onAction="#standButton" prefHeight="175.0" prefWidth="220.0" style="-fx-background-color: #f39c12; -fx-background-radius: 15;" text="Stand" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial Black" size="40.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="resetButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#resetButton" prefHeight="175.0" prefWidth="220.0" style="-fx-background-color: #c0392b; -fx-background-radius: 15;" text="Reset" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial Black" size="40.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+      <Pane fx:id="deck" layoutX="653.0" layoutY="187.0" maxHeight="200.0" maxWidth="150.0" prefHeight="250.0" prefWidth="200.0" style="-fx-max-height: 200; -fx-max-width: 150;" />
+      <Pane fx:id="playerHand" layoutX="261.0" layoutY="385.0" prefHeight="250.0" prefWidth="348.0" />
+      <Pane fx:id="dealerHand" layoutX="261.0" layoutY="62.0" prefHeight="250.0" prefWidth="348.0" />
+   </children>
+</AnchorPane>

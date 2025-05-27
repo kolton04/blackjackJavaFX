@@ -1,14 +1,18 @@
 package com.koltont.blackjack;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Controller {
@@ -26,21 +30,30 @@ public class Controller {
     @FXML
     Pane dealerHand;
     @FXML
+    Pane deck;
+    @FXML
     Label dealerHandValueLabel = new Label("Dealer's Hand: ");
     @FXML
     Label playerHandValueLabel = new Label("Your Hand: ");
     @FXML
     Label outcomeLabel = new Label();
-
-    ImageView playerHandImages;
-
-    ImageView dealerHandImages;
+    Image cardback = new Image(getClass().getResourceAsStream("/cardback/cardback-black.png"));
+    ImageView cardbackView = new ImageView(cardback);
 
     @FXML
-    public void dealButton(ActionEvent e) {
+    public void initialize() {
+        cardbackView.setFitHeight(200);
+        cardbackView.setFitWidth(150);
+        deck.getChildren().add(cardbackView);
+    }
+
+    @FXML
+    public void dealButton(ActionEvent e) throws IOException {
         game.deal();
-        dealButton.setDisable(true);
+
+        hitButton.setVisible(true);
         hitButton.setDisable(false);
+        standButton.setVisible(true);
         standButton.setDisable(false);
 
         playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
@@ -48,7 +61,7 @@ public class Controller {
     }
 
     @FXML
-    public void hitButton(ActionEvent e) {
+    public void hitButton(ActionEvent e) throws IOException {
         game.hit();
 
         playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
@@ -65,7 +78,7 @@ public class Controller {
     }
 
     @FXML
-    public void standButton(ActionEvent e) {
+    public void standButton(ActionEvent e) throws IOException {
         //Removes face down card and makes it right card image.
         //dealerHandImages.getChildren().set(1, game.dealer.hand.getCardImage(1));
 
@@ -97,6 +110,7 @@ public class Controller {
         game.reset();
 
         dealButton.setDisable(false);
+        dealButton.setVisible(true);
         hitButton.setDisable(true);
         standButton.setDisable(true);
         resetButton.setDisable(false);
@@ -109,11 +123,13 @@ public class Controller {
         outcomeLabel.setText("");
     }
 
-    private ArrayList<ImageView> getHand(ArrayList<String> imgPath){
+    private ArrayList<ImageView> getHand(ArrayList<String> imgPath) throws IOException {
         ArrayList<ImageView> imgViews = new ArrayList<>();
 
         for(int i = 0; i < imgPath.size(); i++){
+            System.out.println(imgPath.get(i));
             ImageView imgV = new ImageView(new Image(imgPath.get(i)));
+            System.out.println(getClass().getResourceAsStream(imgPath.get(i)));
             imgV.setFitWidth(150);
             imgV.setFitHeight(200);
             imgV.setLayoutX(i * 30);

@@ -50,17 +50,7 @@ public class Hand {
         return cardImages;
     }
 
-    /*
-    public ImageView getCardImage(int k){
-        ArrayList<ImageView> cardImages = new ArrayList<>();
 
-        for(int i = 0; i < hand.size(); i++){
-            cardImages.add(i, hand.get(i).getCardURL());
-        }
-        return cardImages.get(k);
-    }
-
-     */
 
     public void clearHand(){
         hand.clear();
