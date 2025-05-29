@@ -1,9 +1,11 @@
 package com.koltont.blackjack;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -14,13 +16,13 @@ import java.util.ArrayList;
 public class Controller {
     Game game = new Game();
     @FXML
-    Button dealButton;
+    JFXButton dealButton;
     @FXML
-    Button hitButton;
+    JFXButton hitButton;
     @FXML
-    Button standButton;
+    JFXButton standButton;
     @FXML
-    Button resetButton;
+    JFXButton resetButton;
     @FXML
     Pane playerHand;
     @FXML
@@ -41,11 +43,15 @@ public class Controller {
     ImageView deckView = new ImageView(cardback);
     ImageView hiddenDealerView = new ImageView(cardback);
 
+
     @FXML
     public void initialize() {
-        deckView.setFitHeight(200);
-        deckView.setFitWidth(150);
+        deckView.setFitHeight(300);
+        deckView.setFitWidth(225);
         deck.getChildren().add(deckView);
+        hitButton.setEffect(new GaussianBlur(10));
+        standButton.setEffect(new GaussianBlur(10));
+
     }
 
     @FXML
@@ -53,8 +59,11 @@ public class Controller {
         game.deal();
 
         dealButton.setDisable(true);
+        dealButton.setEffect(new GaussianBlur(10));
         hitButton.setDisable(false);
+        hitButton.setEffect(null);
         standButton.setDisable(false);
+        standButton.setEffect(null);
         playerLabel.setVisible(true);
         dealerLabel.setVisible(true);
         playerValue.setVisible(true);
@@ -62,8 +71,8 @@ public class Controller {
 
         playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
         dealerHand.getChildren().addAll(getHand(game.dealer.hand.getCardPaths()));
-        hiddenDealerView.setFitHeight(200);
-        hiddenDealerView.setFitWidth(150);
+        hiddenDealerView.setFitHeight(300);
+        hiddenDealerView.setFitWidth(225);
         dealerHand.getChildren().add(1, hiddenDealerView);
 
         playerValue.setText(String.valueOf(game.player.hand.getHandValue()));
@@ -78,23 +87,25 @@ public class Controller {
         playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
         playerValue.setText(String.valueOf(game.player.hand.getHandValue()));
 
+
         if(game.player.hand.getHandValue() > 21){
-            outcomeLabel.setText("Player Bust. Dealer Wins!");
+            outcomeLabel.setText("Player Bust. Dealer wins with " + game.dealer.hand.getHandValue());
             dealButton.setDisable(true);
             hitButton.setDisable(true);
+
             standButton.setDisable(true);
         }
     }
 
     @FXML
     public void standButton(ActionEvent e) throws IOException {
-        //Removes face down card and makes it right card image.
-        //dealerHandImages.getChildren().set(1, game.dealer.hand.getCardImage(1));
 
-        dealButton.setDisable(true);
         hitButton.setDisable(true);
+        hitButton.setEffect(new GaussianBlur(10));
         standButton.setDisable(true);
+        standButton.setEffect(new GaussianBlur(10));
         game.stand();
+        dealerHand.getChildren().remove(1);
         dealerHand.getChildren().addAll(getHand(game.dealer.hand.getCardPaths()));
         dealerValue.setText(String.valueOf(game.dealer.hand.getHandValue()));
 
@@ -121,10 +132,11 @@ public class Controller {
         game.reset();
 
         dealButton.setDisable(false);
-        dealButton.setVisible(true);
         hitButton.setDisable(true);
         standButton.setDisable(true);
         resetButton.setDisable(false);
+
+        dealButton.setEffect(null);
 
         playerLabel.setVisible(false);
         dealerLabel.setVisible(false);
@@ -144,8 +156,8 @@ public class Controller {
 
         for(int i = 0; i < imgPath.size(); i++){
             ImageView imgV = new ImageView(new Image(imgPath.get(i)));
-            imgV.setFitWidth(150);
-            imgV.setFitHeight(200);
+            imgV.setFitWidth(225);
+            imgV.setFitHeight(300);
             imgV.setLayoutX(i * 30);
 
             imgViews.add(imgV);
@@ -153,4 +165,5 @@ public class Controller {
 
         return imgViews;
     }
+
 }

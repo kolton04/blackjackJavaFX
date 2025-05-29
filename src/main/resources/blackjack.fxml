@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -11,17 +12,17 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="850.0" style="-fx-background-color: #10772a;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.koltont.blackjack.Controller">
    <children>
-      <Label fx:id="playerLabel" alignment="TOP_CENTER" layoutX="352.0" layoutY="447.0" prefHeight="50.0" prefWidth="150.0" text="Player" visible="false">
+      <Label fx:id="playerLabel" alignment="TOP_CENTER" layoutX="352.0" layoutY="449.0" prefHeight="50.0" prefWidth="150.0" text="Player" visible="false">
          <font>
             <Font name="Arial Black" size="33.0" />
          </font>
       </Label>
-      <StackPane layoutX="350.0" layoutY="500.0" prefHeight="200.0" prefWidth="150.0">
+      <StackPane layoutX="316.0" layoutY="499.0" prefHeight="300.0" prefWidth="225.0">
          <children>
-            <Pane fx:id="playerHand" prefHeight="198.0" prefWidth="150.0" StackPane.alignment="CENTER_RIGHT" />
-            <Label fx:id="playerValue" alignment="CENTER" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: black;" textAlignment="CENTER" textFill="WHITE" visible="false" StackPane.alignment="BOTTOM_LEFT">
+            <Pane fx:id="playerHand" prefHeight="300.0" prefWidth="166.0" StackPane.alignment="CENTER_RIGHT" />
+            <Label fx:id="playerValue" alignment="CENTER" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: black;" textAlignment="CENTER" textFill="WHITE" visible="false" StackPane.alignment="BOTTOM_LEFT">
                <font>
-                  <Font name="Arial" size="12.0" />
+                  <Font name="Arial" size="16.0" />
                </font>
             </Label>
          </children>
@@ -29,17 +30,17 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <Label fx:id="dealerLabel" alignment="TOP_CENTER" layoutX="352.0" layoutY="39.0" prefHeight="50.0" prefWidth="150.0" text="Dealer" visible="false">
+      <Label fx:id="dealerLabel" alignment="TOP_CENTER" layoutX="353.0" layoutY="5.0" prefHeight="50.0" prefWidth="150.0" text="Dealer" visible="false">
          <font>
             <Font name="Arial Black" size="33.0" />
          </font>
       </Label>
-      <StackPane layoutX="352.0" layoutY="87.0" prefHeight="200.0" prefWidth="150.0">
+      <StackPane layoutX="316.0" layoutY="55.0" prefHeight="300.0" prefWidth="225.0">
          <children>
-            <Pane fx:id="dealerHand" maxHeight="204.0" maxWidth="265.0" minHeight="200.0" minWidth="0.0" prefHeight="200.0" prefWidth="150.0" StackPane.alignment="CENTER_RIGHT" />
-            <Label fx:id="dealerValue" alignment="CENTER" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: black;" textAlignment="CENTER" textFill="WHITE" visible="false" StackPane.alignment="BOTTOM_LEFT">
+            <Pane fx:id="dealerHand" maxHeight="300.0" maxWidth="265.0" minHeight="200.0" minWidth="0.0" prefHeight="300.0" prefWidth="225.0" StackPane.alignment="CENTER_RIGHT" />
+            <Label fx:id="dealerValue" alignment="CENTER" prefHeight="45.0" prefWidth="44.0" style="-fx-background-color: black;" textAlignment="CENTER" textFill="WHITE" visible="false" StackPane.alignment="BOTTOM_LEFT">
                <font>
-                  <Font name="Arial" size="12.0" />
+                  <Font name="Arial" size="16.0" />
                </font>
             </Label>
          </children>
@@ -47,11 +48,19 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <HBox layoutX="127.0" layoutY="880.0" prefHeight="147.0" prefWidth="600.0">
+      <HBox layoutX="15.0" layoutY="172.0" prefHeight="300.0" prefWidth="225.0">
          <children>
-            <JFXButton fx:id="dealButton" buttonType="RAISED" onAction="#dealButton" prefHeight="150.0" prefWidth="600.0" ripplerFill="BLACK" style="-fx-background-color: #962424; -fx-background-radius: 15; -fx-font-weight: 6; -jfx-disable-visual-focus: true;" text="Deal" textFill="WHITE">
+            <Pane fx:id="deck" maxHeight="300.0" maxWidth="225.0" prefHeight="300.0" prefWidth="225.0" style="-fx-max-height: 300; -fx-max-width: 225;" />
+         </children>
+         <effect>
+            <DropShadow radius="18.060000000000002" width="53.24" />
+         </effect>
+      </HBox>
+      <HBox layoutX="127.0" layoutY="838.0" prefHeight="147.0" prefWidth="600.0">
+         <children>
+            <JFXButton fx:id="dealButton" buttonType="RAISED" onAction="#dealButton" prefHeight="147.0" prefWidth="600.0" ripplerFill="BLACK" style="-fx-background-color: #F1C40F; -fx-background-radius: 15; -fx-font-weight: 6; -jfx-disable-visual-focus: true;" styleClass="button" text="DEAL">
                <font>
-                  <Font name="Georgia Bold" size="82.0" />
+                  <Font name="Segoe UI Bold" size="78.0" />
                </font>
             </JFXButton>
          </children>
@@ -59,21 +68,27 @@
             <DropShadow />
          </effect>
       </HBox>
-      <HBox alignment="TOP_CENTER" layoutX="125.0" layoutY="1036.0" prefHeight="150.0" prefWidth="600.0">
+      <HBox alignment="TOP_CENTER" layoutX="128.0" layoutY="1014.0" prefHeight="150.0" prefWidth="600.0">
          <children>
-            <JFXButton fx:id="hitButton" buttonType="RAISED" onAction="#hitButton" prefHeight="150.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-radius: 15; -fx-background-color: #962424; -jfx-disable-visual-focus: true;" text="Hit" textAlignment="CENTER" textFill="WHITE">
+            <JFXButton fx:id="hitButton" buttonType="RAISED" disable="true" onAction="#hitButton" prefHeight="150.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-radius: 15; -fx-background-color: #34495E; -jfx-disable-visual-focus: true;" styleClass="button" text="HIT" textAlignment="CENTER">
                <font>
-                  <Font name="Georgia Bold" size="56.0" />
+                  <Font name="Segoe UI Bold" size="66.0" />
                </font>
+               <effect>
+                  <GaussianBlur radius="14.44" />
+               </effect>
             </JFXButton>
-            <JFXButton fx:id="standButton" buttonType="RAISED" onAction="#standButton" prefHeight="150.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #962424; -fx-background-radius: 15;" text="Stand" textFill="WHITE">
+            <JFXButton fx:id="standButton" buttonType="RAISED" disable="true" onAction="#standButton" prefHeight="150.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #7F8C8D; -fx-background-radius: 15;" styleClass="button" text="STAND" textFill="WHITE">
                <font>
-                  <Font name="Georgia Bold" size="46.0" />
+                  <Font name="Segoe UI Bold" size="42.0" />
                </font>
+               <effect>
+                  <GaussianBlur radius="15.48" />
+               </effect>
             </JFXButton>
-            <JFXButton fx:id="resetButton" buttonType="RAISED" onAction="#resetButton" prefHeight="150.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #ad950a; -fx-background-radius: 15;" text="Reset" textFill="WHITE">
+            <JFXButton fx:id="resetButton" buttonType="RAISED" onAction="#resetButton" prefHeight="150.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3C; -fx-background-radius: 15;" styleClass="button" text="RESET" textFill="WHITE">
                <font>
-                  <Font name="Georgia Bold" size="47.0" />
+                  <Font name="Segoe UI Bold" size="47.0" />
                </font>
             </JFXButton>
          </children>
@@ -81,11 +96,7 @@
             <DropShadow />
          </effect>
       </HBox>
-      <Pane fx:id="deck" layoutX="50.0" layoutY="87.0" maxHeight="200.0" maxWidth="150.0" prefHeight="200.0" prefWidth="150.0" rotate="155.0" style="-fx-max-height: 200; -fx-max-width: 150;">
-         <effect>
-            <DropShadow />
-         </effect></Pane>
-      <Label fx:id="outcomeLabel" alignment="CENTER" layoutX="194.0" layoutY="699.0" prefHeight="150.0" prefWidth="466.0" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="outcomeLabel" layoutX="317.0" layoutY="372.0" prefHeight="77.0" prefWidth="509.0" textFill="WHITE">
          <font>
             <Font name="Georgia" size="36.0" />
          </font>
