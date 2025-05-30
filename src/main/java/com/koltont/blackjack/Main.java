@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("blackjack.fxml"));
-        Scene scene = new Scene(root, 850, 1200);
+        Scene scene = new Scene(root, 1300, 1300);
         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         stage.setTitle("Blackjack");
         stage.setScene(scene);

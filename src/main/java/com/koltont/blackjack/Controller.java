@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -37,6 +38,8 @@ public class Controller {
     Label dealerValue;
     @FXML
     Label playerValue;
+    @FXML
+    HBox outcomeHBox;
     @FXML
     Label outcomeLabel = new Label();
     Image cardback = new Image(getClass().getResourceAsStream("/cardback/cardback-black.png"));
@@ -94,6 +97,8 @@ public class Controller {
             hitButton.setDisable(true);
 
             standButton.setDisable(true);
+            outcomeHBox.setVisible(true);
+
         }
     }
 
@@ -113,16 +118,24 @@ public class Controller {
 
         if(game.dealer.hand.getHandValue() > 21){
             outcomeLabel.setText("Dealer Bust. You Win!");
+            outcomeHBox.setVisible(true);
+
         }
         else if(game.player.hand.getHandValue() > game.dealer.hand.getHandValue()){
             outcomeLabel.setText("You Win!");
+            outcomeHBox.setVisible(true);
+
         }
         else if(game.player.hand.getHandValue() == game.dealer.hand.getHandValue()){
             outcomeLabel.setText("Tie!");
+            outcomeHBox.setVisible(true);
+
 
         }
         else{
             outcomeLabel.setText("Dealer Wins!");
+            outcomeHBox.setVisible(true);
+
 
         }
     }
@@ -149,6 +162,7 @@ public class Controller {
         dealerValue.setText("");
         playerValue.setText("");
         outcomeLabel.setText("");
+        outcomeHBox.setVisible(false);
     }
 
     private ArrayList<ImageView> getHand(ArrayList<String> imgPath) throws IOException {
@@ -159,6 +173,7 @@ public class Controller {
             imgV.setFitWidth(225);
             imgV.setFitHeight(300);
             imgV.setLayoutX(i * 30);
+            imgV.setLayoutY(i * 15);
 
             imgViews.add(imgV);
         }
