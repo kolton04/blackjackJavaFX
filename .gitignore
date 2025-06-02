@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # === Java ===
 target/
 build/
@@ -46,3 +47,31 @@ nbdist/
 
 # === Ignore log files and system output ===
 *.log
+=======
+# Compiled class files
+target/
+
+# Logs
+*.log
+
+# IDE-specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Maven wrapper binaries (optional to ignore, see note)
+.mvn/wrapper/maven-wrapper.jar
+
+# Backup files
+*~
+
+# Java crash logs
+hs_err_pid*.log
+replay_pid*.log
+>>>>>>> update-ui

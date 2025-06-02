@@ -4,7 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+<<<<<<< HEAD
     <groupId>com.example</groupId>
+=======
+    <groupId>com.koltont</groupId>
+>>>>>>> update-ui
     <artifactId>blackjack</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>blackjack</name>
@@ -14,8 +18,25 @@
         <junit.version>5.9.1</junit.version>
     </properties>
 
+<<<<<<< HEAD
     <dependencies>
         <dependency>
+=======
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>9.0.10</version>
+        </dependency>
+        <dependency>
+>>>>>>> update-ui
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>17.0.2</version>
@@ -38,6 +59,10 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+<<<<<<< HEAD
+=======
+
+>>>>>>> update-ui
     </dependencies>
 
     <build>
@@ -47,8 +72,13 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
                 <configuration>
+<<<<<<< HEAD
                     <source>11</source>
                     <target>11</target>
+=======
+                    <source>9</source>
+                    <target>9</target>
+>>>>>>> update-ui
                 </configuration>
             </plugin>
             <plugin>
@@ -60,7 +90,11 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
+<<<<<<< HEAD
                             <mainClass>com.example.blackjack/com.example.blackjackJavaFX.Main</mainClass>
+=======
+                            <mainClass>com.koltont.blackjack/com.koltont.blackjack.Main</mainClass>
+>>>>>>> update-ui
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

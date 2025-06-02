@@ -1,4 +1,4 @@
-package com.example.blackjackJavaFX;
+package com.koltont.blackjack;
 
 import javafx.scene.image.ImageView;
 
@@ -41,23 +41,16 @@ public class Hand {
         return value;
     }
 
-    public ArrayList<ImageView> getCardImages(){
-        ArrayList<ImageView> cardImages = new ArrayList<>();
+    public ArrayList<String> getCardPaths(){
+        ArrayList<String> cardImages = new ArrayList<>();
 
         for(int i = 0; i < hand.size(); i++){
-            cardImages.add(i, hand.get(i).getCardImage());
+            cardImages.add(i, hand.get(i).getCardURL());
         }
         return cardImages;
     }
 
-    public ImageView getCardImage(int k){
-        ArrayList<ImageView> cardImages = new ArrayList<>();
 
-        for(int i = 0; i < hand.size(); i++){
-            cardImages.add(i, hand.get(i).getCardImage());
-        }
-        return cardImages.get(k);
-    }
 
     public void clearHand(){
         hand.clear();
