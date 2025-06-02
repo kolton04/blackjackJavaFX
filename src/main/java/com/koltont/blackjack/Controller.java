@@ -1,21 +1,29 @@
 package com.koltont.blackjack;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.animation.Interpolator;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Controller {
     Game game = new Game();
+
     @FXML
     JFXButton dealButton;
     @FXML
@@ -28,6 +36,10 @@ public class Controller {
     Pane playerHand;
     @FXML
     Pane dealerHand;
+    @FXML
+    StackPane playerSP;
+    @FXML
+    StackPane dealerSP;
     @FXML
     Pane deck;
     @FXML
@@ -45,15 +57,32 @@ public class Controller {
     Image cardback = new Image(getClass().getResourceAsStream("/cardback/cardback-black.png"));
     ImageView deckView = new ImageView(cardback);
     ImageView hiddenDealerView = new ImageView(cardback);
+    ImageView dealtCard = new ImageView(cardback);
+
 
 
     @FXML
     public void initialize() {
+        dealtCard.setFitHeight(300);
+        dealtCard.setFitWidth(225);
         deckView.setFitHeight(300);
         deckView.setFitWidth(225);
         deck.getChildren().add(deckView);
+        deck.getChildren().add(dealtCard);
+
         hitButton.setEffect(new GaussianBlur(10));
         standButton.setEffect(new GaussianBlur(10));
+
+        ArrayList<ImageView> dealtCards = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            ImageView cardBack = new ImageView(cardback);
+            cardBack.setFitWidth(225);
+            cardBack.setFitHeight(300);
+            cardBack.setLayoutX(deck.getLayoutX());
+            cardBack.setLayoutY(deck.getLayoutY());
+            deck.getChildren().add(cardBack);
+            dealtCards.add(cardBack);
+        }
 
     }
 
@@ -61,12 +90,19 @@ public class Controller {
     public void dealButton(ActionEvent e) throws IOException {
         game.deal();
 
-        dealButton.setDisable(true);
-        dealButton.setEffect(new GaussianBlur(10));
-        hitButton.setDisable(false);
-        hitButton.setEffect(null);
-        standButton.setDisable(false);
-        standButton.setEffect(null);
+        dealtCard.setVisible(false);
+
+        playerHand.setVisible(true);
+        dealerHand.setVisible(true);
+        playerLabel.setVisible(true);
+        dealerLabel.setVisible(true);
+        playerValue.setVisible(true);
+        dealerValue.setVisible(true);
+
+        dealtCard.setVisible(false);
+
+        playerHand.setVisible(true);
+        dealerHand.setVisible(true);
         playerLabel.setVisible(true);
         dealerLabel.setVisible(true);
         playerValue.setVisible(true);
@@ -74,12 +110,21 @@ public class Controller {
 
         playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
         dealerHand.getChildren().addAll(getHand(game.dealer.hand.getCardPaths()));
+
         hiddenDealerView.setFitHeight(300);
         hiddenDealerView.setFitWidth(225);
         dealerHand.getChildren().add(1, hiddenDealerView);
 
         playerValue.setText(String.valueOf(game.player.hand.getHandValue()));
-        dealerValue.setText(String.valueOf(game.dealer.tempDealer()));
+        dealerValue.setText(String.valueOf(game.dealer.tempDealerValue()));
+
+        dealButton.setDisable(true);
+        dealButton.setEffect(new GaussianBlur(10));
+        hitButton.setDisable(false);
+        hitButton.setEffect(null);
+        standButton.setDisable(false);
+        standButton.setEffect(null);
+
 
     }
 
@@ -163,6 +208,7 @@ public class Controller {
         playerValue.setText("");
         outcomeLabel.setText("");
         outcomeHBox.setVisible(false);
+
     }
 
     private ArrayList<ImageView> getHand(ArrayList<String> imgPath) throws IOException {
@@ -180,5 +226,6 @@ public class Controller {
 
         return imgViews;
     }
+
 
 }

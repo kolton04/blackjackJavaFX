@@ -12,7 +12,7 @@ public class Dealer {
         return hand;
     }
 
-    public int tempDealer(){
+    public int tempDealerValue(){
         int value = 0;
 
         if(hand.getHand().get(1).getRank().equals("ace")){
