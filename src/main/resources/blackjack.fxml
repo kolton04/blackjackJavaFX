@@ -98,21 +98,6 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <HBox fx:id="outcomeHBox" layoutX="956.0" layoutY="916.0" prefHeight="287.0" prefWidth="330.0" style="-fx-border-width: 0; -fx-background-color: #0c591f;" visible="false">
-         <children>
-            <Label fx:id="outcomeLabel" alignment="TOP_CENTER" prefHeight="285.0" prefWidth="202.0" textFill="WHITE" wrapText="true">
-               <font>
-                  <Font name="Segoe UI" size="36.0" />
-               </font>
-            </Label>
-         </children>
-         <effect>
-            <DropShadow />
-         </effect>
-         <padding>
-            <Insets left="10.0" top="10.0" />
-         </padding>
-      </HBox>
       <HBox layoutX="120.0" layoutY="14.0" prefHeight="300.0" prefWidth="225.0">
          <effect>
             <DropShadow radius="18.060000000000002" width="53.24" />
@@ -121,6 +106,20 @@
             <Pane fx:id="deck" maxHeight="300.0" maxWidth="225.0" prefHeight="300.0" prefWidth="225.0" style="-fx-max-height: 300; -fx-max-width: 225;" />
          </children>
       </HBox>
+      <HBox fx:id="outcomeHBox" alignment="CENTER" layoutX="28.0" layoutY="26.0" prefHeight="860.0" prefWidth="1240.0" style="-fx-border-width: 0; -fx-background-color: black; -fx-opacity: 0.25;" visible="false">
+         <children>
+            <Label fx:id="outcomeLabel" alignment="TOP_CENTER" prefHeight="285.0" prefWidth="202.0" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Segoe UI" size="36.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <GaussianBlur radius="31.49" />
+         </effect>
+         <padding>
+            <Insets left="10.0" top="10.0" />
+         </padding>
+      </HBox>
    </children>
 </AnchorPane>
-

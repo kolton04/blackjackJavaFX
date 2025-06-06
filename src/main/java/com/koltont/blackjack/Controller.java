@@ -50,32 +50,17 @@ public class Controller {
     Image cardback = new Image(getClass().getResourceAsStream("/cardback/cardback-black.png"));
     ImageView deckView = new ImageView(cardback);
     ImageView hiddenDealerView = new ImageView(cardback);
-    ImageView dealtCard = new ImageView(cardback);
 
 
 
     @FXML
     public void initialize() {
-        dealtCard.setFitHeight(300);
-        dealtCard.setFitWidth(225);
         deckView.setFitHeight(300);
         deckView.setFitWidth(225);
         deck.getChildren().add(deckView);
-        deck.getChildren().add(dealtCard);
 
         hitButton.setEffect(new GaussianBlur(10));
         standButton.setEffect(new GaussianBlur(10));
-
-        ArrayList<ImageView> dealtCards = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            ImageView cardBack = new ImageView(cardback);
-            cardBack.setFitWidth(225);
-            cardBack.setFitHeight(300);
-            cardBack.setLayoutX(deck.getLayoutX());
-            cardBack.setLayoutY(deck.getLayoutY());
-            deck.getChildren().add(cardBack);
-            dealtCards.add(cardBack);
-        }
 
     }
 
@@ -83,41 +68,37 @@ public class Controller {
     public void dealButton(ActionEvent e) throws IOException {
         game.deal();
 
-        dealtCard.setVisible(false);
-
+        // Enables the hand panes with player and hand value labels
         playerHand.setVisible(true);
-        dealerHand.setVisible(true);
         playerLabel.setVisible(true);
-        dealerLabel.setVisible(true);
         playerValue.setVisible(true);
+
+        dealerHand.setVisible(true);
+        dealerLabel.setVisible(true);
         dealerValue.setVisible(true);
 
-        dealtCard.setVisible(false);
-
-        playerHand.setVisible(true);
-        dealerHand.setVisible(true);
-        playerLabel.setVisible(true);
-        dealerLabel.setVisible(true);
-        playerValue.setVisible(true);
-        dealerValue.setVisible(true);
-
+        // Loops through hand card paths and adds image to respective hand. Sets hand value labels
         playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
-        dealerHand.getChildren().addAll(getHand(game.dealer.hand.getCardPaths()));
-
-        hiddenDealerView.setFitHeight(300);
-        hiddenDealerView.setFitWidth(225);
-        dealerHand.getChildren().add(1, hiddenDealerView);
-
         playerValue.setText(String.valueOf(game.player.hand.getHandValue()));
+
+        dealerHand.getChildren().addAll(getHand(game.dealer.hand.getCardPaths()));
         dealerValue.setText(String.valueOf(game.dealer.tempDealerValue()));
 
+        // Hides second dealer card
+        hiddenDealerView.setFitHeight(300);
+        hiddenDealerView.setFitWidth(225);
+
+        dealerHand.getChildren().add(1, hiddenDealerView);
+
+        // Updates buttons and their visual effects
         dealButton.setDisable(true);
         dealButton.setEffect(new GaussianBlur(10));
+
         hitButton.setDisable(false);
         hitButton.setEffect(null);
+
         standButton.setDisable(false);
         standButton.setEffect(null);
-
 
     }
 
@@ -127,7 +108,6 @@ public class Controller {
 
         playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
         playerValue.setText(String.valueOf(game.player.hand.getHandValue()));
-
 
         if(game.player.hand.getHandValue() > 21){
             outcomeLabel.setText("Player Bust. Dealer wins with " + game.dealer.hand.getHandValue());
@@ -152,8 +132,6 @@ public class Controller {
         dealerHand.getChildren().addAll(getHand(game.dealer.hand.getCardPaths()));
         dealerValue.setText(String.valueOf(game.dealer.hand.getHandValue()));
 
-
-
         if(game.dealer.hand.getHandValue() > 21){
             outcomeLabel.setText("Dealer Bust. You Win!");
             outcomeHBox.setVisible(true);
@@ -173,7 +151,6 @@ public class Controller {
         else{
             outcomeLabel.setText("Dealer Wins!");
             outcomeHBox.setVisible(true);
-
 
         }
     }
