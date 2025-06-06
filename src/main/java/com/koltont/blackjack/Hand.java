@@ -1,7 +1,5 @@
 package com.koltont.blackjack;
 
-import javafx.scene.image.ImageView;
-
 import java.util.ArrayList;
 import java.util.List;
 

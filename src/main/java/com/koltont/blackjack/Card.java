@@ -1,8 +1,5 @@
 package com.koltont.blackjack;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 public class Card {
     private String rank;
     private String suit;
