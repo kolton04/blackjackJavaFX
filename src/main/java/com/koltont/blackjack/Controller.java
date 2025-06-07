@@ -1,15 +1,18 @@
 package com.koltont.blackjack;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,13 +21,17 @@ public class Controller {
     Game game = new Game();
 
     @FXML
+    AnchorPane playArea;
+    @FXML
+    AnchorPane dealerAP;
+    @FXML
+    AnchorPane playerAP;
+    @FXML
     JFXButton dealButton;
     @FXML
     JFXButton hitButton;
     @FXML
     JFXButton standButton;
-    @FXML
-    JFXButton resetButton;
     @FXML
     Pane playerHand;
     @FXML
@@ -66,39 +73,61 @@ public class Controller {
 
     @FXML
     public void dealButton(ActionEvent e) throws IOException {
-        game.deal();
+        game.reset();
 
-        // Enables the hand panes with player and hand value labels
-        playerHand.setVisible(true);
-        playerLabel.setVisible(true);
-        playerValue.setVisible(true);
+        outcomeHBox.setVisible(false);
+        outcomeLabel.setText("");
+        playArea.setEffect(null);
 
-        dealerHand.setVisible(true);
-        dealerLabel.setVisible(true);
-        dealerValue.setVisible(true);
+        dealerHand.getChildren().clear();
+        playerHand.getChildren().clear();
+        dealerAP.setVisible(false);
+        playerAP.setVisible(false);
 
-        // Loops through hand card paths and adds image to respective hand. Sets hand value labels
-        playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
-        playerValue.setText(String.valueOf(game.player.hand.getHandValue()));
-
-        dealerHand.getChildren().addAll(getHand(game.dealer.hand.getCardPaths()));
-        dealerValue.setText(String.valueOf(game.dealer.tempDealerValue()));
-
-        // Hides second dealer card
-        hiddenDealerView.setFitHeight(300);
-        hiddenDealerView.setFitWidth(225);
-
-        dealerHand.getChildren().add(1, hiddenDealerView);
-
-        // Updates buttons and their visual effects
         dealButton.setDisable(true);
         dealButton.setEffect(new GaussianBlur(10));
 
-        hitButton.setDisable(false);
-        hitButton.setEffect(null);
+        hitButton.setDisable(true);
+        hitButton.setEffect(new GaussianBlur(10));
 
-        standButton.setDisable(false);
-        standButton.setEffect(null);
+        standButton.setDisable(true);
+        standButton.setEffect(new GaussianBlur(10));
+
+
+        PauseTransition dealHandPause = new PauseTransition(Duration.millis(500));
+        dealHandPause.setOnFinished(actionEvent -> {
+            try {
+                game.deal();
+
+                // Enables player and dealer AnchorPanes with hand labels.
+                dealerAP.setVisible(true);
+                playerAP.setVisible(true);
+
+                // Loops through hand card paths and adds image to respective hand. Sets hand value labels
+                playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
+                playerValue.setText(String.valueOf(game.player.hand.getHandValue()));
+
+                dealerHand.getChildren().addAll(getHand(game.dealer.hand.getCardPaths()));
+                dealerValue.setText(String.valueOf(game.dealer.tempDealerValue()));
+
+                // Hides second dealer card
+                hiddenDealerView.setFitHeight(300);
+                hiddenDealerView.setFitWidth(225);
+
+                dealerHand.getChildren().add(1, hiddenDealerView);
+
+                hitButton.setDisable(false);
+                hitButton.setEffect(null);
+
+                standButton.setDisable(false);
+                standButton.setEffect(null);
+            }
+            catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        dealHandPause.play();
 
     }
 
@@ -106,80 +135,51 @@ public class Controller {
     public void hitButton(ActionEvent e) throws IOException {
         game.hit();
 
-        playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
-        playerValue.setText(String.valueOf(game.player.hand.getHandValue()));
+        PauseTransition hitPause = new PauseTransition(Duration.millis(250));
+        hitPause.setOnFinished(actionEvent -> {
+            try {
+                playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
+                playerValue.setText(String.valueOf(game.player.hand.getHandValue()));
+            }
+            catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        } );
+        hitPause.play();
 
-        if(game.player.hand.getHandValue() > 21){
-            outcomeLabel.setText("Player Bust. Dealer wins with " + game.dealer.hand.getHandValue());
-            dealButton.setDisable(true);
-            hitButton.setDisable(true);
-
-            standButton.setDisable(true);
-            outcomeHBox.setVisible(true);
-
+        if(game.player.hand.getHandValue() > 21) {
+            handleOutcome();
         }
+
     }
 
     @FXML
     public void standButton(ActionEvent e) throws IOException {
-
         hitButton.setDisable(true);
         hitButton.setEffect(new GaussianBlur(10));
         standButton.setDisable(true);
         standButton.setEffect(new GaussianBlur(10));
         game.stand();
+
         dealerHand.getChildren().remove(1);
-        dealerHand.getChildren().addAll(getHand(game.dealer.hand.getCardPaths()));
         dealerValue.setText(String.valueOf(game.dealer.hand.getHandValue()));
 
-        if(game.dealer.hand.getHandValue() > 21){
-            outcomeLabel.setText("Dealer Bust. You Win!");
-            outcomeHBox.setVisible(true);
 
-        }
-        else if(game.player.hand.getHandValue() > game.dealer.hand.getHandValue()){
-            outcomeLabel.setText("You Win!");
-            outcomeHBox.setVisible(true);
-
-        }
-        else if(game.player.hand.getHandValue() == game.dealer.hand.getHandValue()){
-            outcomeLabel.setText("Tie!");
-            outcomeHBox.setVisible(true);
-
-
-        }
-        else{
-            outcomeLabel.setText("Dealer Wins!");
-            outcomeHBox.setVisible(true);
-
-        }
-    }
-
-    @FXML
-    public void resetButton(ActionEvent e) {
-        game.reset();
-
-        dealButton.setDisable(false);
-        hitButton.setDisable(true);
-        standButton.setDisable(true);
-        resetButton.setDisable(false);
-
-        dealButton.setEffect(null);
-
-        playerLabel.setVisible(false);
-        dealerLabel.setVisible(false);
-        playerValue.setVisible(false);
-        dealerValue.setVisible(false);
-
-
-        dealerHand.getChildren().clear();
-        playerHand.getChildren().clear();
-        dealerValue.setText("");
-        playerValue.setText("");
-        outcomeLabel.setText("");
-        outcomeHBox.setVisible(false);
+        PauseTransition standPause = new PauseTransition(Duration.millis(450));
+        standPause.setOnFinished(actionEvent -> {
+            try {
+                dealerHand.getChildren().addAll(getHand(game.dealer.hand.getCardPaths()));
+                dealerValue.setText(String.valueOf(game.dealer.hand.getHandValue()));
+                handleOutcome();
+            }
+            catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        standPause.play();
 
     }
+
 
     private ArrayList<ImageView> getHand(ArrayList<String> imgPath) throws IOException {
         ArrayList<ImageView> imgViews = new ArrayList<>();
@@ -197,5 +197,39 @@ public class Controller {
         return imgViews;
     }
 
+    private void handleOutcome(){
+        int playerValue = game.player.hand.getHandValue();
+        int dealerValue = game.dealer.hand.getHandValue();
 
+        PauseTransition outcomePause = new PauseTransition(Duration.seconds(1));
+        outcomePause.setOnFinished(actionEvent -> {
+            if(playerValue > 21){
+                outcomeLabel.setText("Player Bust. Dealer wins!");
+
+                dealButton.setDisable(true);
+                hitButton.setDisable(true);
+                standButton.setDisable(true);
+            }
+            else if(playerValue > dealerValue){
+                outcomeLabel.setText("You Win!");
+            }
+
+            if(dealerValue > 21){
+                outcomeLabel.setText("Dealer Bust. You Win!");
+            }
+            else if(playerValue == dealerValue){
+                outcomeLabel.setText("Tie!");
+            }
+
+            if(dealerValue > playerValue){
+                outcomeLabel.setText("Dealer Wins!");
+            }
+
+            outcomeHBox.setVisible(true);
+            playArea.setEffect(new GaussianBlur(5));
+            dealButton.setDisable(false);
+            dealButton.setEffect(null);
+        });
+        outcomePause.play();
+    }
 }
