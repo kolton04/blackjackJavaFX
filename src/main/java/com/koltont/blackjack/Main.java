@@ -15,7 +15,6 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         stage.setTitle("Blackjack");
         stage.setScene(scene);
-        stage.setResizable(false);
         stage.show();
     }
 

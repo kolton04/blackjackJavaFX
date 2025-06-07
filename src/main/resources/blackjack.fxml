@@ -14,6 +14,70 @@
 
 <AnchorPane fx:id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1300.0" prefWidth="1300.0" style="-fx-background-color: #10772a;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.koltont.blackjack.Controller">
    <children>
+      <AnchorPane fx:id="playArea" layoutX="21.0" layoutY="19.0" prefHeight="876.0" prefWidth="1255.0">
+         <children>
+            <AnchorPane fx:id="playerAP" layoutX="349.0" layoutY="474.0" prefHeight="300.0" prefWidth="450.0" visible="false">
+               <children>
+                  <StackPane fx:id="playerSP" alignment="CENTER_RIGHT" layoutX="182.0" prefHeight="300.0" prefWidth="225.0">
+                     <children>
+                        <Pane fx:id="playerHand" prefHeight="300.0" prefWidth="166.0" StackPane.alignment="CENTER_RIGHT" />
+                        <Label fx:id="playerValue" alignment="CENTER" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: black;" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="CENTER_LEFT">
+                           <font>
+                              <Font name="Arial" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </StackPane>
+                  <HBox alignment="CENTER_LEFT" layoutX="70.0" layoutY="148.0" prefHeight="50.0" prefWidth="111.0">
+                     <children>
+                        <Label fx:id="playerLabel" alignment="TOP_CENTER" prefHeight="50.0" prefWidth="100.0" text="Player">
+                           <font>
+                              <Font name="Segoe UI Bold" size="33.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="dealerAP" layoutX="345.0" layoutY="47.0" prefHeight="300.0" prefWidth="450.0" visible="false">
+               <children>
+                  <StackPane fx:id="dealerSP" layoutX="192.0" prefHeight="300.0" prefWidth="225.0">
+                     <children>
+                        <Pane fx:id="dealerHand" maxHeight="300.0" maxWidth="265.0" minHeight="200.0" minWidth="0.0" prefHeight="300.0" prefWidth="225.0" StackPane.alignment="CENTER_RIGHT" />
+                        <Label fx:id="dealerValue" alignment="CENTER" prefHeight="45.0" prefWidth="44.0" style="-fx-background-color: black;" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="CENTER_LEFT">
+                           <font>
+                              <Font name="Arial" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </StackPane>
+                  <HBox layoutX="80.0" layoutY="146.0" prefHeight="50.0" prefWidth="111.0">
+                     <children>
+                        <Label fx:id="dealerLabel" alignment="TOP_CENTER" prefHeight="50.0" prefWidth="111.0" text="Dealer">
+                           <font>
+                              <Font name="Segoe UI Bold" size="33.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <HBox layoutX="142.0" layoutY="42.0" prefHeight="300.0" prefWidth="225.0">
+               <effect>
+                  <DropShadow radius="18.060000000000002" width="53.24" />
+               </effect>
+               <children>
+                  <Pane fx:id="deck" maxHeight="300.0" maxWidth="225.0" prefHeight="300.0" prefWidth="225.0" style="-fx-max-height: 300; -fx-max-width: 225;" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
       <VBox layoutX="345.0" layoutY="906.0" prefHeight="300.0" prefWidth="600.0">
          <children>
             <JFXButton fx:id="dealButton" buttonType="RAISED" onAction="#dealButton" prefHeight="147.0" prefWidth="600.0" ripplerFill="BLACK" style="-fx-background-color: #F1C40F; -fx-background-radius: 15; -fx-font-weight: 6; -jfx-disable-visual-focus: true;" styleClass="button" text="DEAL">
@@ -23,7 +87,7 @@
             </JFXButton>
             <HBox alignment="BOTTOM_CENTER" prefHeight="150.0" prefWidth="600.0">
                <children>
-                  <JFXButton fx:id="hitButton" buttonType="RAISED" disable="true" onAction="#hitButton" prefHeight="150.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-radius: 15; -fx-background-color: #34495E; -jfx-disable-visual-focus: true;" styleClass="button" text="HIT" textAlignment="CENTER">
+                  <JFXButton fx:id="hitButton" buttonType="RAISED" disable="true" onAction="#hitButton" prefHeight="125.0" prefWidth="395.0" ripplerFill="BLACK" style="-fx-background-radius: 15; -fx-background-color: #34495E; -jfx-disable-visual-focus: true;" styleClass="button" text="HIT" textAlignment="CENTER">
                      <font>
                         <Font name="Segoe UI Bold" size="66.0" />
                      </font>
@@ -31,18 +95,13 @@
                         <GaussianBlur radius="14.44" />
                      </effect>
                   </JFXButton>
-                  <JFXButton fx:id="standButton" buttonType="RAISED" disable="true" onAction="#standButton" prefHeight="150.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #7F8C8D; -fx-background-radius: 15;" styleClass="button" text="STAND" textFill="WHITE">
+                  <JFXButton fx:id="standButton" buttonType="RAISED" disable="true" onAction="#standButton" prefHeight="125.0" prefWidth="410.0" ripplerFill="BLACK" style="-fx-background-color: #7F8C8D; -fx-background-radius: 15;" styleClass="button" text="STAND" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Bold" size="42.0" />
                      </font>
                      <effect>
                         <GaussianBlur radius="15.48" />
                      </effect>
-                  </JFXButton>
-                  <JFXButton fx:id="resetButton" buttonType="RAISED" onAction="#resetButton" prefHeight="150.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #E74C3C; -fx-background-radius: 15;" styleClass="button" text="RESET" textFill="WHITE">
-                     <font>
-                        <Font name="Segoe UI Bold" size="47.0" />
-                     </font>
                   </JFXButton>
                </children>
                <effect>
@@ -54,72 +113,18 @@
             </HBox>
          </children>
       </VBox>
-      <HBox layoutX="420.0" layoutY="625.0" prefHeight="50.0" prefWidth="111.0">
-         <children>
-            <Label fx:id="playerLabel" alignment="TOP_CENTER" prefHeight="50.0" prefWidth="100.0" text="Player" visible="false">
-               <font>
-                  <Font name="Segoe UI Bold" size="33.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <StackPane fx:id="playerSP" layoutX="538.0" layoutY="500.0" prefHeight="300.0" prefWidth="225.0">
-         <children>
-            <Pane fx:id="playerHand" prefHeight="300.0" prefWidth="166.0" StackPane.alignment="CENTER_RIGHT" />
-            <Label fx:id="playerValue" alignment="CENTER" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: black;" textAlignment="CENTER" textFill="WHITE" visible="false" StackPane.alignment="CENTER_LEFT">
-               <font>
-                  <Font name="Arial" size="16.0" />
-               </font>
-            </Label>
-         </children>
-         <effect>
-            <DropShadow />
-         </effect>
-      </StackPane>
-      <HBox layoutX="418.0" layoutY="200.0" prefHeight="50.0" prefWidth="115.0">
-         <children>
-            <Label fx:id="dealerLabel" alignment="TOP_CENTER" prefHeight="50.0" prefWidth="111.0" text="Dealer" visible="false">
-               <font>
-                  <Font name="Segoe UI Bold" size="33.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <StackPane fx:id="dealerSP" layoutX="533.0" layoutY="75.0" prefHeight="300.0" prefWidth="225.0">
-         <children>
-            <Pane fx:id="dealerHand" maxHeight="300.0" maxWidth="265.0" minHeight="200.0" minWidth="0.0" prefHeight="300.0" prefWidth="225.0" StackPane.alignment="CENTER_RIGHT" />
-            <Label fx:id="dealerValue" alignment="CENTER" prefHeight="45.0" prefWidth="44.0" style="-fx-background-color: black;" textAlignment="CENTER" textFill="WHITE" visible="false" StackPane.alignment="CENTER_LEFT">
-               <font>
-                  <Font name="Arial" size="16.0" />
-               </font>
-            </Label>
-         </children>
-         <effect>
-            <DropShadow />
-         </effect>
-      </StackPane>
-      <HBox layoutX="120.0" layoutY="14.0" prefHeight="300.0" prefWidth="225.0">
-         <effect>
-            <DropShadow radius="18.060000000000002" width="53.24" />
-         </effect>
-         <children>
-            <Pane fx:id="deck" maxHeight="300.0" maxWidth="225.0" prefHeight="300.0" prefWidth="225.0" style="-fx-max-height: 300; -fx-max-width: 225;" />
-         </children>
-      </HBox>
-      <HBox fx:id="outcomeHBox" alignment="CENTER" layoutX="28.0" layoutY="26.0" prefHeight="860.0" prefWidth="1240.0" style="-fx-border-width: 0; -fx-background-color: black; -fx-opacity: 0.25;" visible="false">
-         <children>
-            <Label fx:id="outcomeLabel" alignment="TOP_CENTER" prefHeight="285.0" prefWidth="202.0" textFill="WHITE" wrapText="true">
-               <font>
-                  <Font name="Segoe UI" size="36.0" />
-               </font>
-            </Label>
-         </children>
-         <effect>
-            <GaussianBlur radius="31.49" />
-         </effect>
+      <HBox fx:id="outcomeHBox" alignment="CENTER" layoutX="28.0" layoutY="26.0" prefHeight="839.0" prefWidth="1240.0" style="-fx-background-color: black; -fx-opacity: 0.5;" visible="false">
          <padding>
             <Insets left="10.0" top="10.0" />
          </padding>
+         <effect>
+            <GaussianBlur radius="15.19" />
+         </effect>
       </HBox>
+      <Label fx:id="outcomeLabel" alignment="CENTER" layoutX="166.0" layoutY="163.0" prefHeight="586.0" prefWidth="970.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Segoe UI Bold" size="88.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
