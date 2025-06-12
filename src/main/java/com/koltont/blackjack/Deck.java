@@ -3,8 +3,8 @@ package com.koltont.blackjack;
 import java.util.*;
 
 public class Deck {
-    private String suit[] = {"diamonds", "clubs", "spades", "hearts"};
-    private String rank[] = {"ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"};
+    private String suit[] = {"Diamonds", "Clubs", "Spades", "Hearts"};
+    private String rank[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "12"};
     public List<Card> cards = new ArrayList<>(52);
 
     //creates shuffled deck of cards

@@ -8,7 +8,7 @@ public class Card {
     public Card(String rank, String suit){
         this.rank = rank;
         this.suit = suit;
-        this.cardURL = "PNG-cards-1.3/" + rank + "_of_" + suit + ".png";
+        this.cardURL = "pngdeck/" + suit + " " + rank + ".png";
     }
 
     public String getRank(){

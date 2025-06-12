@@ -94,7 +94,7 @@ public class Controller {
         standButton.setEffect(new GaussianBlur(10));
 
 
-        PauseTransition dealHandPause = new PauseTransition(Duration.millis(500));
+        PauseTransition dealHandPause = new PauseTransition(Duration.millis(350));
         dealHandPause.setOnFinished(actionEvent -> {
             try {
                 game.deal();
@@ -104,6 +104,7 @@ public class Controller {
                 playerAP.setVisible(true);
 
                 // Loops through hand card paths and adds image to respective hand. Sets hand value labels
+                System.out.println(game.player.hand.getCardPaths());
                 playerHand.getChildren().addAll(getHand(game.player.hand.getCardPaths()));
                 playerValue.setText(String.valueOf(game.player.hand.getHandValue()));
 
@@ -185,6 +186,7 @@ public class Controller {
         ArrayList<ImageView> imgViews = new ArrayList<>();
 
         for(int i = 0; i < imgPath.size(); i++){
+            System.out.println(imgPath.get(i));
             ImageView imgV = new ImageView(new Image(imgPath.get(i)));
             imgV.setFitWidth(225);
             imgV.setFitHeight(300);
@@ -201,17 +203,14 @@ public class Controller {
         int playerValue = game.player.hand.getHandValue();
         int dealerValue = game.dealer.hand.getHandValue();
 
-        PauseTransition outcomePause = new PauseTransition(Duration.seconds(1));
+        PauseTransition outcomePause = new PauseTransition(Duration.millis(400));
         outcomePause.setOnFinished(actionEvent -> {
-            if(playerValue > 21){
-                outcomeLabel.setText("Player Bust. Dealer wins!");
 
-                dealButton.setDisable(true);
-                hitButton.setDisable(true);
-                standButton.setDisable(true);
-            }
-            else if(playerValue > dealerValue){
+            if(playerValue > dealerValue){
                 outcomeLabel.setText("You Win!");
+            }
+            else{
+                outcomeLabel.setText("Dealer Wins!");
             }
 
             if(dealerValue > 21){
@@ -220,10 +219,14 @@ public class Controller {
             else if(playerValue == dealerValue){
                 outcomeLabel.setText("Tie!");
             }
+            if(playerValue > 21){
+                outcomeLabel.setText("Player Bust. Dealer wins!");
 
-            if(dealerValue > playerValue){
-                outcomeLabel.setText("Dealer Wins!");
+                dealButton.setDisable(true);
+                hitButton.setDisable(true);
+                standButton.setDisable(true);
             }
+
 
             outcomeHBox.setVisible(true);
             playArea.setEffect(new GaussianBlur(5));
