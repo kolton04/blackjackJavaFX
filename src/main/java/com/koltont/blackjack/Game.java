@@ -1,9 +1,14 @@
 package com.koltont.blackjack;
 
+import com.jfoenix.controls.JFXSlider;
+import javafx.fxml.FXML;
+
 public class Game {
     private Deck deck;
     public Player player;
     public Dealer dealer;
+    private double bet;
+
 
     public Game(){
         this.player = new Player();
@@ -20,6 +25,7 @@ public class Game {
         dealer.hit(deck);
         player.hit(deck);
         dealer.hit(deck);
+
     }
 
     public void hit(){

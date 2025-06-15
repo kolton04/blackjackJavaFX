@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
@@ -73,7 +74,7 @@
                   <DropShadow radius="18.060000000000002" width="53.24" />
                </effect>
                <children>
-                  <Pane fx:id="deck" maxHeight="300.0" maxWidth="225.0" prefHeight="300.0" prefWidth="225.0" style="-fx-max-height: 300; -fx-max-width: 225; -fx-background-radius: 25;" />
+                  <Pane fx:id="deck" maxHeight="300.0" maxWidth="225.0" prefHeight="300.0" prefWidth="225.0" style="-fx-max-height: 300; -fx-max-width: 225;" />
                </children>
             </HBox>
             <Label alignment="TOP_CENTER" layoutX="308.0" layoutY="375.0" opacity="0.76" prefHeight="64.0" prefWidth="650.0" text="BLACKJACK PAYS 3 TO 2" textFill="#094017">
@@ -88,8 +89,24 @@
             </Label>
          </children>
       </AnchorPane>
-      <VBox layoutX="345.0" layoutY="906.0" prefHeight="300.0" prefWidth="600.0">
+      <VBox alignment="CENTER_LEFT" layoutX="345.0" layoutY="906.0" prefHeight="300.0" prefWidth="600.0">
          <children>
+            <JFXSlider fx:id="betSlider" max="1000.0" prefHeight="25.0" prefWidth="600.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </JFXSlider>
+            <Label fx:id="betAmtLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="258.0" text="BET AMOUNT(CHIPS):">
+               <font>
+                  <Font name="Segoe UI Bold" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
             <JFXButton fx:id="dealButton" buttonType="RAISED" onAction="#dealButton" prefHeight="147.0" prefWidth="600.0" ripplerFill="BLACK" style="-fx-background-color: #F1C40F; -fx-background-radius: 15; -fx-font-weight: 6; -jfx-disable-visual-focus: true;" styleClass="button" text="DEAL">
                <font>
                   <Font name="Segoe UI Bold" size="78.0" />
@@ -134,6 +151,11 @@
       <Label fx:id="outcomeLabel" alignment="CENTER" layoutX="166.0" layoutY="163.0" prefHeight="586.0" prefWidth="970.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Segoe UI Bold" size="88.0" />
+         </font>
+      </Label>
+      <Label fx:id="betValidation" alignment="TOP_LEFT" layoutX="17.0" layoutY="938.0" prefHeight="291.0" prefWidth="308.0" textFill="#750202" wrapText="true">
+         <font>
+            <Font name="Segoe UI Bold" size="50.0" />
          </font>
       </Label>
    </children>
