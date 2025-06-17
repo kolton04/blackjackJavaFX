@@ -89,20 +89,30 @@
             </Label>
          </children>
       </AnchorPane>
-      <VBox alignment="CENTER_LEFT" layoutX="345.0" layoutY="906.0" prefHeight="300.0" prefWidth="600.0">
+      <VBox alignment="CENTER_LEFT" layoutX="345.0" layoutY="853.0" prefHeight="447.0" prefWidth="600.0">
          <children>
-            <JFXSlider fx:id="betSlider" max="1000.0" prefHeight="25.0" prefWidth="600.0">
+            <JFXSlider fx:id="betSlider" blockIncrement="1.0" majorTickUnit="1.0" prefHeight="25.0" prefWidth="600.0" snapToTicks="true">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
             </JFXSlider>
-            <Label fx:id="betAmtLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="258.0" text="BET AMOUNT(CHIPS):">
+            <Label fx:id="chipsLabel" prefHeight="27.0" prefWidth="601.0" text="CHIPS:">
                <font>
-                  <Font name="Segoe UI Bold" size="24.0" />
+                  <Font name="Segoe UI Bold" size="27.0" />
+               </font>
+            </Label>
+            <Label fx:id="betAmt" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="0.0" prefWidth="600.0" text="BET AMOUNT:">
+               <font>
+                  <Font name="Segoe UI Bold" size="21.0" />
                </font>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
+            </Label>
+            <Label fx:id="payoutLabel" prefHeight="23.0" prefWidth="601.0" text="PAYOUT:">
+               <font>
+                  <Font name="Segoe UI Bold" size="18.0" />
+               </font>
                <padding>
                   <Insets bottom="10.0" />
                </padding>
@@ -153,7 +163,7 @@
             <Font name="Segoe UI Bold" size="88.0" />
          </font>
       </Label>
-      <Label fx:id="betValidation" alignment="TOP_LEFT" layoutX="17.0" layoutY="938.0" prefHeight="291.0" prefWidth="308.0" textFill="#750202" wrapText="true">
+      <Label fx:id="betValidation" alignment="TOP_LEFT" layoutX="17.0" layoutY="938.0" prefHeight="291.0" prefWidth="308.0" textFill="#a10404" wrapText="true">
          <font>
             <Font name="Segoe UI Bold" size="50.0" />
          </font>

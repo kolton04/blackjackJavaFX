@@ -7,12 +7,16 @@ public class Game {
     private Deck deck;
     public Player player;
     public Dealer dealer;
-    private double bet;
-
+    private int wins;
+    private int losses;
+    private int ties;
 
     public Game(){
         this.player = new Player();
         this.dealer = new Dealer();
+        this.wins = 0;
+        this.losses = 0;
+        this.ties = 0;
     }
 
     public void deal() {
@@ -40,5 +44,31 @@ public class Game {
     public void reset(){
         player.hand.clearHand();
         dealer.hand.clearHand();
+    }
+
+    public String handleRound(){
+        int playerValue = player.hand.getHandValue();
+        int dealerValue = dealer.hand.getHandValue();
+
+        if(playerValue > 21){
+            player.loseBet();
+            losses++;
+            return "Player Bust. Dealer Wins";
+        }
+        else if(dealerValue > 21 || playerValue > dealerValue){
+            player.winBet();
+            wins++;
+            return "Player Wins";
+        }
+        else if(playerValue == dealerValue){
+            player.pushBet();
+            ties++;
+            return "Tie";
+        }
+        else {
+            player.loseBet();
+            losses++;
+            return "Dealer Wins";
+        }
     }
 }

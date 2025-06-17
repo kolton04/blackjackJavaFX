@@ -61,6 +61,10 @@ public class Controller {
     Label betValidation;
     @FXML
     Label betAmt;
+    @FXML
+    Label payoutLabel;
+    @FXML
+    Label chipsLabel;
 
     Image cardback = new Image(getClass().getResourceAsStream("/cardback/cardback_black.png"));
     ImageView deckView = new ImageView(cardback);
@@ -77,12 +81,24 @@ public class Controller {
         hitButton.setEffect(new GaussianBlur(10));
         standButton.setEffect(new GaussianBlur(10));
 
+        chipsLabel.setText("CHIPS: " + game.player.getChipAmt());
+
+        //Updates bet amount label in real time with slider
+        betSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            int bet = (int) Math.round(newValue.doubleValue());
+            betAmt.setText("BET AMOUNT: " + bet);
+            payoutLabel.setText("PAYOUT: " + (int)(bet * 1.5));
+        });
+
     }
 
     @FXML
     public void dealButton(ActionEvent e) throws IOException {
         if(betSlider.getValue() == 0){
             betValidation.setText("Bet amount cannot be 0");
+        }
+        else if(betSlider.getValue() > game.player.getChipAmt()){
+            betValidation.setText("You can't bet more than you have");
         }
         else{
             game.reset();
@@ -105,11 +121,17 @@ public class Controller {
             standButton.setDisable(true);
             standButton.setEffect(new GaussianBlur(10));
 
+            betValidation.setText("");
 
             PauseTransition dealHandPause = new PauseTransition(Duration.millis(350));
             dealHandPause.setOnFinished(actionEvent -> {
                 try {
+                    game.player.setBetAmt((int)betSlider.getValue());
+
                     game.deal();
+
+                    betAmt.setText("BET AMOUNT: " + game.player.getBetAmt());
+                    chipsLabel.setText("CHIPS: " + game.player.getChipAmt());
 
                     // Enables player and dealer AnchorPanes with hand labels.
                     dealerAP.setVisible(true);
@@ -133,6 +155,8 @@ public class Controller {
 
                     standButton.setDisable(false);
                     standButton.setEffect(null);
+
+                    betSlider.setDisable(true);
                 }
                 catch (IOException ex) {
                     ex.printStackTrace();
@@ -211,37 +235,20 @@ public class Controller {
     }
 
     private void handleOutcome(){
-        int playerValue = game.player.hand.getHandValue();
-        int dealerValue = game.dealer.hand.getHandValue();
-
         PauseTransition outcomePause = new PauseTransition(Duration.millis(400));
         outcomePause.setOnFinished(actionEvent -> {
+            String result = game.handleRound();
+            outcomeLabel.setText(result);
 
-            if(playerValue > dealerValue){
-                outcomeLabel.setText("You Win!");
-            }
-            else{
-                outcomeLabel.setText("Dealer Wins!");
-            }
-
-            if(dealerValue > 21){
-                outcomeLabel.setText("Dealer Bust. You Win!");
-            }
-            else if(playerValue == dealerValue){
-                outcomeLabel.setText("Tie!");
-            }
-            if(playerValue > 21){
-                outcomeLabel.setText("Player Bust. Dealer wins!");
-
-                dealButton.setDisable(true);
-                hitButton.setDisable(true);
-                standButton.setDisable(true);
-            }
-
+            chipsLabel.setText("CHIPS: " + game.player.getChipAmt());
             outcomeHBox.setVisible(true);
             playArea.setEffect(new GaussianBlur(5));
+
             dealButton.setDisable(false);
             dealButton.setEffect(null);
+            betSlider.setDisable(false);
+            betSlider.setMax(game.player.chips);
+
         });
         outcomePause.play();
     }

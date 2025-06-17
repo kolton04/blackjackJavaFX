@@ -1,13 +1,12 @@
 package com.koltont.blackjack;
 
-import com.jfoenix.controls.JFXSlider;
-import javafx.fxml.FXML;
+import static java.lang.Math.round;
 
 public class Player {
 
     public Hand hand;
-    public double chips;
-    public double bet;
+    public int chips;
+    public int bet;
 
 
     public Player(){
@@ -20,7 +19,28 @@ public class Player {
         hand.addCard(deck.draw());
     }
 
+    public int getChipAmt(){
+        return chips;
+    }
 
+    public int getBetAmt(){
+        return bet;
+    }
 
+    public void setBetAmt(int bet){
+        this.bet = bet;
+        this.chips -= bet;
+    }
 
+    public void winBet(){
+        chips += bet * 2;
+    }
+
+    public void loseBet(){
+
+    }
+
+    public void pushBet(){
+        chips += bet;
+    }
 }
